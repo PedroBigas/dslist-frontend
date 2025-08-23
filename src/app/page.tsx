@@ -21,9 +21,11 @@ export default function Home() {
             <Button variant="default" className="neu-pressed">
               Home
             </Button>
-            <Button variant="ghost" className="neu-flat hover:neu-pressed">
-              Listas
-            </Button>
+            <Link href="/lists">
+              <Button variant="ghost" className="neu-flat hover:neu-pressed">
+                Listas
+              </Button>
+            </Link>
             <Link href="/games">
               <Button variant="ghost" className="neu-flat hover:neu-pressed">
                 Games
@@ -54,9 +56,11 @@ export default function Home() {
                   🚀 Explorar Games
                 </Button>
               </Link>
-              <Button variant="outline" className="neu-flat text-lg px-8 py-3">
-                📋 Ver Listas
-              </Button>
+              <Link href="/lists">
+                <Button variant="outline" className="neu-flat text-lg px-8 py-3">
+                  📋 Ver Listas
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

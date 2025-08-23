@@ -61,9 +61,11 @@ export default function GameDetailPage() {
                   Home
                 </Button>
               </Link>
-              <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                Listas
-              </Button>
+              <Link href="/lists">
+                <Button variant="ghost" className="neu-flat hover:neu-pressed">
+                  Listas
+                </Button>
+              </Link>
               <Link href="/games">
                 <Button variant="ghost" className="neu-flat hover:neu-pressed">
                   Games
@@ -104,9 +106,11 @@ export default function GameDetailPage() {
                   Home
                 </Button>
               </Link>
-              <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                Listas
-              </Button>
+              <Link href="/lists">
+                <Button variant="ghost" className="neu-flat hover:neu-pressed">
+                  Listas
+                </Button>
+              </Link>
               <Link href="/games">
                 <Button variant="ghost" className="neu-flat hover:neu-pressed">
                   Games
