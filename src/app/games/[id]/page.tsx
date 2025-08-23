@@ -201,8 +201,8 @@ export default function GameDetailPage() {
           <Card className="neu-raised overflow-hidden">
             <div className="flex flex-col lg:flex-row">
               {/* Image Section */}
-              <div className="lg:w-2/5 w-full">
-                <div className="aspect-video lg:aspect-square relative overflow-hidden bg-gradient-to-br from-muted/20 to-muted/40 game-card-image h-64 lg:h-full">
+              <div className="lg:w-2/5 w-full bg-gradient-to-br from-muted/20 to-muted/40">
+                <div className="aspect-video lg:aspect-square relative overflow-hidden game-card-image h-64 lg:h-full">
                   <img
                     src={game.imgUrl}
                     alt={game.title}
@@ -216,7 +216,7 @@ export default function GameDetailPage() {
               </div>
               
               {/* Content Section */}
-              <div className="flex-1 p-8">
+              <div className="flex-1 p-8 bg-background">
                 <CardHeader className="p-0 pb-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
@@ -248,7 +248,14 @@ export default function GameDetailPage() {
                 <CardContent className="p-0">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-xl font-semibold mb-3">📝 Descrição</h3>
+                      <h3 className="text-xl font-semibold mb-3">📝 Resumo</h3>
+                      <CardDescription className="text-base leading-relaxed mb-4 font-medium">
+                        {game.shortDescription}
+                      </CardDescription>
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-xl font-semibold mb-3">📖 Descrição Completa</h3>
                       <CardDescription className="text-base leading-relaxed">
                         {game.longDescription}
                       </CardDescription>
