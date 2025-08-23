@@ -189,7 +189,7 @@ export default function ListsPage() {
                   <CardTitle className="text-2xl font-bold mb-4">{list.name}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center pb-8">
-                  <Link href={`/lists/${list.id}`}>
+                  <Link href={`/lists/${list.id}/games`}>
                     <Button className="neu-raised w-full group-hover:scale-105 transition-transform duration-300">
                       Explorar Lista
                     </Button>
