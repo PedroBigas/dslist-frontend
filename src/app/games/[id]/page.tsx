@@ -199,14 +199,14 @@ export default function GameDetailPage() {
       <section className="py-8 px-4">
         <div className="max-w-6xl mx-auto">
           <Card className="neu-raised overflow-hidden">
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col lg:flex-row gap-0">
               {/* Image Section */}
-              <div className="lg:w-2/5 w-full bg-gradient-to-br from-muted/20 to-muted/40">
-                <div className="aspect-video lg:aspect-square relative overflow-hidden game-card-image h-64 lg:h-full">
+              <div className="lg:w-2/5 w-full bg-gradient-to-br from-muted/20 to-muted/40 p-6">
+                <div className="aspect-video lg:aspect-square relative overflow-hidden game-card-image">
                   <img
                     src={game.imgUrl}
                     alt={game.title}
-                    className="max-w-full max-h-full object-contain rounded-lg"
+                    className="w-full h-full object-contain rounded-lg"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = '/placeholder-game.png';
@@ -216,7 +216,7 @@ export default function GameDetailPage() {
               </div>
               
               {/* Content Section */}
-              <div className="flex-1 p-8 bg-background">
+              <div className="flex-1 p-8 bg-card">
                 <CardHeader className="p-0 pb-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
@@ -262,11 +262,13 @@ export default function GameDetailPage() {
                     </div>
                     
                     <div className="flex gap-3 pt-4">
-                      <Link href="/games">
-                        <Button variant="outline" className="neu-flat hover:neu-pressed">
-                          ← Voltar à Lista
-                        </Button>
-                      </Link>
+                      <Button 
+                        variant="outline" 
+                        className="neu-flat hover:neu-pressed"
+                        onClick={() => router.push('/games')}
+                      >
+                        ← Voltar à Lista
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
