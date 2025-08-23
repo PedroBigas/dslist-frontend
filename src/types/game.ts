@@ -19,3 +19,9 @@ export interface GameDetail {
   shortDescription: string;
   longDescription: string;
 }
+
+// Interface para lista de games por gênero
+export interface GameList {
+  id: number;
+  name: string;
+}
