@@ -186,10 +186,7 @@ export default function ListsPage() {
                       {getGenreIcon(list.name)}
                     </span>
                   </div>
-                  <CardTitle className="text-2xl font-bold mb-3">{list.name}</CardTitle>
-                  <CardDescription className="text-base mb-6">
-                    Descubra uma seleção especial de jogos do gênero {list.name.toLowerCase()}
-                  </CardDescription>
+                  <CardTitle className="text-2xl font-bold mb-4">{list.name}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center pb-8">
                   <Link href={`/lists/${list.id}`}>
