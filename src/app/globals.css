@@ -202,4 +202,13 @@
     justify-content: center;
     padding: 8px;
   }
+  
+  /* Layout de lista para games */
+  .game-list-card {
+    min-height: 200px;
+  }
+  
+  .game-list-card .game-card-image {
+    min-height: 200px;
+  }
 }
