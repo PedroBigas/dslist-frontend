@@ -260,9 +260,6 @@ export default function GameDetailPage() {
                           ← Voltar à Lista
                         </Button>
                       </Link>
-                      <Button className="neu-raised">
-                        Adicionar à Lista
-                      </Button>
                     </div>
                   </div>
                 </CardContent>
