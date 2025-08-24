@@ -110,7 +110,7 @@ export default function ListsPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {lists.map((list) => (
-              <Card key={list.id} className="neu-raised hover:neu-pressed transition-all duration-300 cursor-pointer group">
+              <Card key={list.id} className="neu-raised cursor-pointer group">
                 <CardHeader className="text-center p-8">
                   <div className="neu-pressed p-6 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {getGenreIcon(list.name)}

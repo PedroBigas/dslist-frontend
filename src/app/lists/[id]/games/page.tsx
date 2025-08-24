@@ -57,7 +57,7 @@ function SortableGameCard({ game }: { game: Game }) {
     <Card 
       ref={setNodeRef} 
       style={style}
-      className={`neu-raised hover:neu-pressed transition-all duration-300 overflow-hidden game-list-card cursor-grab active:cursor-grabbing ${
+      className={`neu-raised overflow-hidden game-list-card cursor-grab active:cursor-grabbing ${
         isDragging ? 'shadow-2xl scale-105' : ''
       }`}
       {...attributes}

@@ -8,7 +8,7 @@
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     
-    /* Neumorphism variables - Light Mode */
+    /* Neumorphism variables */
     --neu-bg: #e0e5ec;
     --neu-shadow-light: #ffffff;
     --neu-shadow-dark: #a3b1c6;
@@ -38,6 +38,7 @@
     --chart-5: 27 87% 67%;
   }
 
+<<<<<<< HEAD
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -72,6 +73,8 @@
     --chart-5: 340 75% 55%;
   }
 
+=======
+>>>>>>> fix-styling
   * {
     @apply border-border;
   }
