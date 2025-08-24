@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -151,7 +151,7 @@ export default function ListsPage() {
 }
 
 // Função auxiliar para retornar ícones baseados no nome do gênero
-function getGenreIcon(genreName: string): JSX.Element {
+function getGenreIcon(genreName: string) {
   const name = genreName.toLowerCase();
   const iconClass = "h-8 w-8 text-primary";
   
