@@ -26,15 +26,11 @@ export default function Header() {
             <p className="text-sm text-muted-foreground">Sua lista de games</p>
           </div>
         </Link>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
           <Link href="/">
             <Button 
-              variant="ghost"
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                isActive('/') 
-                  ? "bg-primary/10 text-primary" 
-                  : "text-muted-foreground hover:text-primary hover:bg-primary/5"
-              }`}
+              variant={isActive('/') ? "default" : "ghost"} 
+              className={isActive('/') ? "neu-pressed" : "neu-flat hover:opacity-80"}
             >
               <Home className="h-4 w-4 mr-2" />
               Home
@@ -42,12 +38,8 @@ export default function Header() {
           </Link>
           <Link href="/lists">
             <Button 
-              variant="ghost"
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                isActive('/lists') 
-                  ? "bg-primary/10 text-primary" 
-                  : "text-muted-foreground hover:text-primary hover:bg-primary/5"
-              }`}
+              variant={isActive('/lists') ? "default" : "ghost"} 
+              className={isActive('/lists') ? "neu-pressed" : "neu-flat hover:opacity-80"}
             >
               <List className="h-4 w-4 mr-2" />
               Listas
@@ -55,12 +47,8 @@ export default function Header() {
           </Link>
           <Link href="/games">
             <Button 
-              variant="ghost"
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                isActive('/games') 
-                  ? "bg-primary/10 text-primary" 
-                  : "text-muted-foreground hover:text-primary hover:bg-primary/5"
-              }`}
+              variant={isActive('/games') ? "default" : "ghost"} 
+              className={isActive('/games') ? "neu-pressed" : "neu-flat hover:opacity-80"}
             >
               <Library className="h-4 w-4 mr-2" />
               Games
