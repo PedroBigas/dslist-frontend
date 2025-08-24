@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Game, GameList } from "@/types/game";
-import { Breadcrumb } from "@/components/Breadcrumb";
+import Breadcrumb from "@/components/Breadcrumb";
 import { 
   AlertCircle, 
   Loader2, 
