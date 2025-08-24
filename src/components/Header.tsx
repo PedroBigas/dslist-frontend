@@ -8,7 +8,18 @@ import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Header() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
+  
+  // Usar try-catch para lidar com contexto não disponível durante SSR
+  let theme = 'light';
+  let toggleTheme = () => {};
+  
+  try {
+    const themeContext = useTheme();
+    theme = themeContext.theme;
+    toggleTheme = themeContext.toggleTheme;
+  } catch (error) {
+    // Contexto não disponível durante SSR, usar valores padrão
+  }
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
