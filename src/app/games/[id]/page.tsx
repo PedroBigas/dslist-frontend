@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { GameDetail } from "@/types/game";
+import Breadcrumb from "@/components/Breadcrumb";
+import { AlertCircle, Loader2, Star, ArrowLeft, Target, Gamepad, FileText } from "lucide-react";
 
 export default function GameDetailPage() {
   const params = useParams();
@@ -92,23 +94,13 @@ export default function GameDetailPage() {
     <div className="min-h-screen">
 
       {/* Breadcrumb */}
-      <section className="py-4 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="neu-flat p-4 rounded-lg">
-            <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <Link href="/" className="hover:text-primary transition-colors">
-                Home
-              </Link>
-              <span>→</span>
-              <Link href="/games" className="hover:text-primary transition-colors">
-                Games
-              </Link>
-              <span>→</span>
-              <span className="text-foreground font-medium">{game.title}</span>
-            </nav>
-          </div>
-        </div>
-      </section>
+      <Breadcrumb 
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Games", href: "/games" },
+          { label: game.title }
+        ]} 
+      />
 
       {/* Game Detail */}
       <section className="py-8 px-4">
@@ -141,7 +133,7 @@ export default function GameDetailPage() {
                           {game.year}
                         </span>
                         <div className="flex items-center gap-1">
-                          <span className="text-yellow-500">⭐</span>
+                          <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
                           <span className="font-semibold">{game.score}</span>
                         </div>
                       </div>
@@ -150,11 +142,17 @@ export default function GameDetailPage() {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div className="neu-flat p-4 rounded-lg">
-                      <h3 className="font-semibold mb-2 text-primary">🎯 Gênero</h3>
+                      <h3 className="font-semibold mb-2 text-primary flex items-center gap-2">
+                        <Target className="h-4 w-4" />
+                        Gênero
+                      </h3>
                       <p className="text-sm">{game.genre}</p>
                     </div>
                     <div className="neu-flat p-4 rounded-lg">
-                      <h3 className="font-semibold mb-2 text-primary">🎮 Plataformas</h3>
+                      <h3 className="font-semibold mb-2 text-primary flex items-center gap-2">
+                        <Gamepad className="h-4 w-4" />
+                        Plataformas
+                      </h3>
                       <p className="text-sm">{game.platforms}</p>
                     </div>
                   </div>
@@ -163,14 +161,20 @@ export default function GameDetailPage() {
                 <CardContent className="p-0">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-xl font-semibold mb-3">📝 Resumo</h3>
+                      <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                        <FileText className="h-5 w-5 text-primary" />
+                        Resumo
+                      </h3>
                       <CardDescription className="text-base leading-relaxed mb-4 font-medium">
                         {game.shortDescription}
                       </CardDescription>
                     </div>
                     
                     <div>
-                      <h3 className="text-xl font-semibold mb-3">📖 Descrição Completa</h3>
+                      <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                        <FileText className="h-5 w-5 text-primary" />
+                        Descrição Completa
+                      </h3>
                       <CardDescription className="text-base leading-relaxed">
                         {game.longDescription}
                       </CardDescription>
@@ -182,7 +186,8 @@ export default function GameDetailPage() {
                         className="neu-flat hover:neu-pressed"
                         onClick={() => router.push('/games')}
                       >
-                        ← Voltar à Lista
+                        <ArrowLeft className="h-4 w-4 mr-2" />
+                        Voltar à Lista
                       </Button>
                     </div>
                   </div>
