@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Gamepad2, Home, List, Library } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ export default function Header() {
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
         <Link href="/" className="flex items-center space-x-2">
           <div className="neu-pressed p-3 rounded-full">
-            <span className="text-2xl">🎮</span>
+            <Gamepad2 className="h-6 w-6 text-primary" />
           </div>
           <div>
             <h1 className="text-2xl font-bold text-primary">DSList</h1>
@@ -31,6 +32,7 @@ export default function Header() {
               variant={isActive('/') ? "default" : "ghost"} 
               className={isActive('/') ? "neu-pressed" : "neu-flat hover:neu-pressed"}
             >
+              <Home className="h-4 w-4 mr-2" />
               Home
             </Button>
           </Link>
@@ -39,6 +41,7 @@ export default function Header() {
               variant={isActive('/lists') ? "default" : "ghost"} 
               className={isActive('/lists') ? "neu-pressed" : "neu-flat hover:neu-pressed"}
             >
+              <List className="h-4 w-4 mr-2" />
               Listas
             </Button>
           </Link>
@@ -47,6 +50,7 @@ export default function Header() {
               variant={isActive('/games') ? "default" : "ghost"} 
               className={isActive('/games') ? "neu-pressed" : "neu-flat hover:neu-pressed"}
             >
+              <Library className="h-4 w-4 mr-2" />
               Games
             </Button>
           </Link>
