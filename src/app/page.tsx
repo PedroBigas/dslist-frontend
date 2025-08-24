@@ -5,35 +5,6 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="neu-flat p-6 m-4">
-        <nav className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center space-x-2">
-            <div className="neu-pressed p-3 rounded-full">
-              <span className="text-2xl">🎮</span>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-primary">DSList</h1>
-              <p className="text-sm text-muted-foreground">Sua lista de games</p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Button variant="default" className="neu-pressed">
-              Home
-            </Button>
-            <Link href="/lists">
-              <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                Listas
-              </Button>
-            </Link>
-            <Link href="/games">
-              <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                Games
-              </Button>
-            </Link>
-          </div>
-        </nav>
-      </header>
 
       {/* Hero Section */}
       <section className="py-20 px-4">

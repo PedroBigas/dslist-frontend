@@ -36,35 +36,6 @@ export default function ListsPage() {
   if (loading) {
     return (
       <div className="min-h-screen">
-        {/* Header */}
-        <header className="neu-flat p-6 m-4">
-          <nav className="flex items-center justify-between max-w-7xl mx-auto">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="neu-pressed p-3 rounded-full">
-                <span className="text-2xl">🎮</span>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-primary">DSList</h1>
-                <p className="text-sm text-muted-foreground">Sua lista de games</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link href="/">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Home
-                </Button>
-              </Link>
-              <Button variant="default" className="neu-pressed">
-                Listas
-              </Button>
-              <Link href="/games">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Games
-                </Button>
-              </Link>
-            </div>
-          </nav>
-        </header>
 
         {/* Loading */}
         <div className="flex items-center justify-center py-20">
@@ -79,35 +50,7 @@ export default function ListsPage() {
   if (error) {
     return (
       <div className="min-h-screen">
-        {/* Header */}
-        <header className="neu-flat p-6 m-4">
-          <nav className="flex items-center justify-between max-w-7xl mx-auto">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="neu-pressed p-3 rounded-full">
-                <span className="text-2xl">🎮</span>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-primary">DSList</h1>
-                <p className="text-sm text-muted-foreground">Sua lista de games</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link href="/">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Home
-                </Button>
-              </Link>
-              <Button variant="default" className="neu-pressed">
-                Listas
-              </Button>
-              <Link href="/games">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Games
-                </Button>
-              </Link>
-            </div>
-          </nav>
-        </header>
+
 
         {/* Error */}
         <div className="flex items-center justify-center py-20">

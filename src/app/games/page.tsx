@@ -36,35 +36,6 @@ export default function GamesPage() {
   if (loading) {
     return (
       <div className="min-h-screen">
-        {/* Header */}
-        <header className="neu-flat p-6 m-4">
-          <nav className="flex items-center justify-between max-w-7xl mx-auto">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="neu-pressed p-3 rounded-full">
-                <span className="text-2xl">🎮</span>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-primary">DSList</h1>
-                <p className="text-sm text-muted-foreground">Sua lista de games</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link href="/">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Home
-                </Button>
-              </Link>
-              <Link href="/lists">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Listas
-                </Button>
-              </Link>
-              <Button variant="default" className="neu-pressed">
-                Games
-              </Button>
-            </div>
-          </nav>
-        </header>
 
         {/* Loading */}
         <div className="flex items-center justify-center py-20">
@@ -79,35 +50,6 @@ export default function GamesPage() {
   if (error) {
     return (
       <div className="min-h-screen">
-        {/* Header */}
-        <header className="neu-flat p-6 m-4">
-          <nav className="flex items-center justify-between max-w-7xl mx-auto">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="neu-pressed p-3 rounded-full">
-                <span className="text-2xl">🎮</span>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-primary">DSList</h1>
-                <p className="text-sm text-muted-foreground">Sua lista de games</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link href="/">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Home
-                </Button>
-              </Link>
-              <Link href="/lists">
-                <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                  Listas
-                </Button>
-              </Link>
-              <Button variant="default" className="neu-pressed">
-                Games
-              </Button>
-            </div>
-          </nav>
-        </header>
 
         {/* Error */}
         <div className="flex items-center justify-center py-20">
@@ -132,33 +74,6 @@ export default function GamesPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="neu-flat p-6 m-4">
-        <nav className="flex items-center justify-between max-w-7xl mx-auto">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="neu-pressed p-3 rounded-full">
-              <span className="text-2xl">🎮</span>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-primary">DSList</h1>
-              <p className="text-sm text-muted-foreground">Sua lista de games</p>
-            </div>
-          </Link>
-          <div className="flex items-center space-x-4">
-            <Link href="/">
-              <Button variant="ghost" className="neu-flat hover:neu-pressed">
-                Home
-              </Button>
-            </Link>
-            <Button variant="ghost" className="neu-flat hover:neu-pressed">
-              Listas
-            </Button>
-            <Button variant="default" className="neu-pressed">
-              Games
-            </Button>
-          </div>
-        </nav>
-      </header>
 
       {/* Page Title */}
       <section className="py-12 px-4">
