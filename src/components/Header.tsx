@@ -8,18 +8,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Header() {
   const pathname = usePathname();
-  
-  // Usar try-catch para lidar com contexto não disponível durante SSR
-  let theme = 'light';
-  let toggleTheme = () => {};
-  
-  try {
-    const themeContext = useTheme();
-    theme = themeContext.theme;
-    toggleTheme = themeContext.toggleTheme;
-  } catch (error) {
-    // Contexto não disponível durante SSR, usar valores padrão
-  }
+  const { theme, toggleTheme } = useTheme();
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -73,7 +62,7 @@ export default function Header() {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="neu-flat hover:neu-pressed"
+            className="neu-flat hover:opacity-80"
             title={theme === 'light' ? 'Ativar modo escuro' : 'Ativar modo claro'}
           >
             {theme === 'light' ? (

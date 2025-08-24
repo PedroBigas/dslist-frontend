@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import ClientHeader from "@/components/ClientHeader";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const geistSans = Geist({
@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://dslist.com'),
   title: {
     default: "DSList - Sua Lista de Games",
     template: "%s | DSList"
@@ -57,11 +58,7 @@ export const metadata: Metadata = {
     description: 'Descubra, organize e explore uma vasta coleção de games.',
     images: ['/og-image.jpg'],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
+
 };
 
 export default function RootLayout({
@@ -70,13 +67,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="light">
+    <html lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
         <ThemeProvider>
-          <Header />
+          <ClientHeader />
           <main>
             {children}
           </main>
