@@ -6,6 +6,100 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Game, GameList } from "@/types/game";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+// Componente para card arrastável
+function SortableGameCard({ game }: { game: Game }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: game.id.toString() });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <Card 
+      ref={setNodeRef} 
+      style={style}
+      className={`neu-raised hover:neu-pressed transition-all duration-300 overflow-hidden game-list-card cursor-grab active:cursor-grabbing ${
+        isDragging ? 'shadow-2xl scale-105' : ''
+      }`}
+      {...attributes}
+      {...listeners}
+    >
+      <div className="flex flex-col md:flex-row">
+        {/* Image Section */}
+        <div className="md:w-80 w-full bg-gradient-to-br from-muted/20 to-muted/40 p-6">
+          <div className="aspect-video md:aspect-square relative overflow-hidden game-card-image">
+            <img
+              src={game.imgUrl}
+              alt={game.title}
+              className="w-full h-full object-contain rounded-lg"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder-game.png';
+              }}
+            />
+            <div className="absolute top-2 right-2">
+              <span className="neu-pressed px-3 py-1 rounded-full text-sm font-medium">
+                {game.year}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Content Section */}
+        <div className="flex-1 p-6 bg-card">
+          <CardHeader className="p-0 pb-4">
+            <CardTitle className="text-2xl font-bold">{game.title}</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <CardDescription className="text-base leading-relaxed mb-6">
+              {game.shortDescription}
+            </CardDescription>
+            <div className="flex gap-3">
+              <Link href={`/games/${game.id}`}>
+                <Button 
+                  variant="default" 
+                  className="neu-raised"
+                  onPointerDown={(e) => e.stopPropagation()}
+                >
+                  Ver Detalhes
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </div>
+      </div>
+    </Card>
+  );
+}
 
 export default function ListGamesPage() {
   const params = useParams();
@@ -16,6 +110,15 @@ export default function ListGamesPage() {
   const [listInfo, setListInfo] = useState<GameList | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     if (listId) {
@@ -56,6 +159,76 @@ export default function ListGamesPage() {
     } catch (err) {
       // Se não conseguir buscar info da lista, não é crítico
       console.warn('Não foi possível carregar informações da lista');
+    }
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      setGames((items) => {
+        const oldIndex = items.findIndex((item) => item.id.toString() === active.id);
+        const newIndex = items.findIndex((item) => item.id.toString() === over?.id);
+
+        const newItems = arrayMove(items, oldIndex, newIndex);
+        setHasChanges(true);
+        return newItems;
+      });
+    }
+  };
+
+  const saveOrder = async () => {
+    if (!hasChanges) return;
+
+    try {
+      setSaving(true);
+      
+      // Para simplificar, vamos recarregar a lista original e comparar
+      const originalResponse = await fetch(`https://dslist-production-330e.up.railway.app/lists/${listId}/games`);
+      if (!originalResponse.ok) {
+        throw new Error('Falha ao carregar ordem original');
+      }
+      const originalGames = await originalResponse.json();
+      
+      // Encontrar mudanças de posição
+      const changes = [];
+      for (let newIndex = 0; newIndex < games.length; newIndex++) {
+        const currentGame = games[newIndex];
+        const originalIndex = originalGames.findIndex((g: Game) => g.id === currentGame.id);
+        
+        if (originalIndex !== newIndex && originalIndex !== -1) {
+          changes.push({
+            sourceIndex: originalIndex,
+            destinationIndex: newIndex,
+          });
+        }
+      }
+
+      // Enviar mudanças para a API
+      for (const change of changes) {
+        const response = await fetch(
+          `https://dslist-production-330e.up.railway.app/lists/${listId}/replacement`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(change),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error('Falha ao salvar a ordem');
+        }
+      }
+
+      setHasChanges(false);
+      // Recarregar a lista para garantir que está sincronizada
+      await fetchListGames(listId);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao salvar ordem');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -241,65 +414,63 @@ export default function ListGamesPage() {
       {/* Games List */}
       <section className="py-8 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col gap-6">
-            {games.map((game) => (
-              <Card key={game.id} className="neu-raised hover:neu-pressed transition-all duration-300 overflow-hidden game-list-card">
-                <div className="flex flex-col md:flex-row">
-                  {/* Image Section */}
-                  <div className="md:w-80 w-full bg-gradient-to-br from-muted/20 to-muted/40 p-6">
-                    <div className="aspect-video md:aspect-square relative overflow-hidden game-card-image">
-                      <img
-                        src={game.imgUrl}
-                        alt={game.title}
-                        className="w-full h-full object-contain rounded-lg"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/placeholder-game.png';
-                        }}
-                      />
-                      <div className="absolute top-2 right-2">
-                        <span className="neu-pressed px-3 py-1 rounded-full text-sm font-medium">
-                          {game.year}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Content Section */}
-                  <div className="flex-1 p-6 bg-card">
-                    <CardHeader className="p-0 pb-4">
-                      <CardTitle className="text-2xl font-bold">{game.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                      <CardDescription className="text-base leading-relaxed mb-6">
-                        {game.shortDescription}
-                      </CardDescription>
-                      <div className="flex gap-3">
-                        <Link href={`/games/${game.id}`}>
-                          <Button variant="default" className="neu-raised">
-                            Ver Detalhes
-                          </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={games.map(game => game.id.toString())}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="flex flex-col gap-6">
+                {games.map((game) => (
+                  <SortableGameCard key={game.id} game={game} />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
         </div>
       </section>
 
-      {/* Back Button */}
+      {/* Action Buttons */}
       <section className="py-8 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <Button 
-            variant="outline" 
-            className="neu-flat hover:neu-pressed"
-            onClick={() => router.push('/lists')}
-          >
-            ← Voltar às Listas
-          </Button>
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {hasChanges && (
+              <Button 
+                onClick={saveOrder}
+                disabled={saving}
+                className="neu-raised bg-green-600 hover:bg-green-700 text-white"
+              >
+                {saving ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
+                    Salvando...
+                  </>
+                ) : (
+                  <>
+                    💾 Salvar Ordem
+                  </>
+                )}
+              </Button>
+            )}
+            <Button 
+              variant="outline" 
+              className="neu-flat hover:neu-pressed"
+              onClick={() => router.push('/lists')}
+            >
+              ← Voltar às Listas
+            </Button>
+          </div>
+          
+          {hasChanges && (
+            <div className="text-center mt-4">
+              <p className="text-sm text-muted-foreground">
+                ⚠️ Você tem alterações não salvas na ordem dos games
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
