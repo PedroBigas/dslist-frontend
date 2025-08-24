@@ -3,10 +3,12 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Gamepad2, Home, List, Library } from "lucide-react";
+import { Gamepad2, Home, List, Library, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Header() {
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -54,6 +56,21 @@ export default function Header() {
               Games
             </Button>
           </Link>
+          
+          {/* Theme Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="neu-flat hover:neu-pressed"
+            title={theme === 'light' ? 'Ativar modo escuro' : 'Ativar modo claro'}
+          >
+            {theme === 'light' ? (
+              <Moon className="h-4 w-4" />
+            ) : (
+              <Sun className="h-4 w-4" />
+            )}
+          </Button>
         </div>
       </nav>
     </header>

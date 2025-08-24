@@ -89,9 +89,9 @@
   --foreground: oklch(0.985 0 0);
   
   /* Dark mode Neumorphism variables */
-  --neu-bg: #2d3748;
-  --neu-shadow-light: #4a5568;
-  --neu-shadow-dark: #1a202c;
+  --neu-bg: #1a1a1a;
+  --neu-shadow-light: #2a2a2a;
+  --neu-shadow-dark: #0a0a0a;
   --neu-border: rgba(255, 255, 255, 0.1);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
