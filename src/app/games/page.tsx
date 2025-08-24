@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Game } from "@/types/game";
+import { Library, AlertCircle, Loader2 } from "lucide-react";
 
 export default function GamesPage() {
   const [games, setGames] = useState<Game[]>([]);
@@ -40,7 +41,7 @@ export default function GamesPage() {
         {/* Loading */}
         <div className="flex items-center justify-center py-20">
           <div className="neu-inset p-8 rounded-full">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent"></div>
+            <Loader2 className="h-16 w-16 text-primary animate-spin" />
           </div>
         </div>
       </div>
@@ -56,7 +57,7 @@ export default function GamesPage() {
           <Card className="neu-inset p-8 text-center max-w-md">
             <CardHeader>
               <div className="neu-pressed p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">❌</span>
+                <AlertCircle className="h-8 w-8 text-destructive" />
               </div>
               <CardTitle>Erro ao carregar games</CardTitle>
               <CardDescription>{error}</CardDescription>
@@ -79,7 +80,10 @@ export default function GamesPage() {
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="neu-inset p-8 text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">📋 Lista de Games</h1>
+            <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+              <Library className="h-10 w-10 text-primary" />
+              Lista de Games
+            </h1>
             <p className="text-xl text-muted-foreground">
               Explore nossa coleção completa de {games.length} jogos incríveis
             </p>
