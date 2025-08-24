@@ -6,6 +6,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Game, GameList } from "@/types/game";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { 
+  AlertCircle, 
+  Loader2, 
+  ArrowLeft, 
+  Save, 
+  BookOpen, 
+  Gamepad2, 
+  AlertTriangle 
+} from "lucide-react";
 import {
   DndContext,
   closestCenter,
@@ -240,7 +250,7 @@ export default function ListGamesPage() {
         {/* Loading */}
         <div className="flex items-center justify-center py-20">
           <div className="neu-inset p-8 rounded-full">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent"></div>
+            <Loader2 className="h-16 w-16 text-primary animate-spin" />
           </div>
         </div>
       </div>
@@ -257,7 +267,7 @@ export default function ListGamesPage() {
           <Card className="neu-inset p-8 text-center max-w-md">
             <CardHeader>
               <div className="neu-pressed p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">❌</span>
+                <AlertCircle className="h-8 w-8 text-destructive" />
               </div>
               <CardTitle>Erro ao carregar games</CardTitle>
               <CardDescription>{error}</CardDescription>
@@ -288,21 +298,13 @@ export default function ListGamesPage() {
       {/* Breadcrumb */}
       <section className="py-4 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="neu-flat p-4 rounded-lg">
-            <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <Link href="/" className="hover:text-primary transition-colors">
-                Home
-              </Link>
-              <span>→</span>
-              <Link href="/lists" className="hover:text-primary transition-colors">
-                Listas
-              </Link>
-              <span>→</span>
-              <span className="text-foreground font-medium">
-                {listInfo?.name || `Lista ${listId}`}
-              </span>
-            </nav>
-          </div>
+          <Breadcrumb 
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Listas", href: "/lists" },
+              { label: listInfo?.name || `Lista ${listId}` }
+            ]} 
+          />
         </div>
       </section>
 
@@ -310,8 +312,9 @@ export default function ListGamesPage() {
       <section className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="neu-inset p-8 text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">
-              📋 {listInfo?.name || `Lista ${listId}`}
+            <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+              <BookOpen className="h-10 w-10 text-primary" />
+              {listInfo?.name || `Lista ${listId}`}
             </h1>
             <p className="text-xl text-muted-foreground">
               {games.length} {games.length === 1 ? 'jogo encontrado' : 'jogos encontrados'} nesta lista
@@ -354,12 +357,13 @@ export default function ListGamesPage() {
               >
                 {saving ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
                     Salvando...
                   </>
                 ) : (
                   <>
-                    💾 Salvar Ordem
+                    <Save className="h-4 w-4 mr-2" />
+                    Salvar Ordem
                   </>
                 )}
               </Button>
@@ -369,14 +373,16 @@ export default function ListGamesPage() {
               className="neu-flat hover:neu-pressed"
               onClick={() => router.push('/lists')}
             >
-              ← Voltar às Listas
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Voltar às Listas
             </Button>
           </div>
           
           {hasChanges && (
             <div className="text-center mt-4">
-              <p className="text-sm text-muted-foreground">
-                ⚠️ Você tem alterações não salvas na ordem dos games
+              <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+                <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                Você tem alterações não salvas na ordem dos games
               </p>
             </div>
           )}
@@ -389,7 +395,7 @@ export default function ListGamesPage() {
           <Card className="neu-inset p-8 text-center max-w-md">
             <CardHeader>
               <div className="neu-pressed p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">🎮</span>
+                <Gamepad2 className="h-8 w-8 text-primary" />
               </div>
               <CardTitle>Lista vazia</CardTitle>
               <CardDescription>
