@@ -5,6 +5,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { GameList } from "@/types/game";
+import { 
+  AlertCircle, 
+  Loader2, 
+  BookOpen, 
+  Sword, 
+  User, 
+  Zap, 
+  Trophy, 
+  Car, 
+  Puzzle, 
+  Target, 
+  Gamepad2, 
+  Dice6 
+} from "lucide-react";
 
 export default function ListsPage() {
   const [lists, setLists] = useState<GameList[]>([]);
@@ -40,7 +54,7 @@ export default function ListsPage() {
         {/* Loading */}
         <div className="flex items-center justify-center py-20">
           <div className="neu-inset p-8 rounded-full">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent"></div>
+            <Loader2 className="h-16 w-16 text-primary animate-spin" />
           </div>
         </div>
       </div>
@@ -57,7 +71,7 @@ export default function ListsPage() {
           <Card className="neu-inset p-8 text-center max-w-md">
             <CardHeader>
               <div className="neu-pressed p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">❌</span>
+                <AlertCircle className="h-8 w-8 text-destructive" />
               </div>
               <CardTitle>Erro ao carregar listas</CardTitle>
               <CardDescription>{error}</CardDescription>
@@ -80,7 +94,10 @@ export default function ListsPage() {
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="neu-inset p-8 text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4">📋 Listas por Gênero</h1>
+            <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+              <BookOpen className="h-10 w-10 text-primary" />
+              Listas por Gênero
+            </h1>
             <p className="text-xl text-muted-foreground">
               Explore games organizados por categorias e gêneros
             </p>
@@ -96,9 +113,7 @@ export default function ListsPage() {
               <Card key={list.id} className="neu-raised hover:neu-pressed transition-all duration-300 cursor-pointer group">
                 <CardHeader className="text-center p-8">
                   <div className="neu-pressed p-6 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl">
-                      {getGenreIcon(list.name)}
-                    </span>
+                    {getGenreIcon(list.name)}
                   </div>
                   <CardTitle className="text-2xl font-bold mb-4">{list.name}</CardTitle>
                 </CardHeader>
@@ -121,7 +136,7 @@ export default function ListsPage() {
           <Card className="neu-inset p-8 text-center max-w-md">
             <CardHeader>
               <div className="neu-pressed p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl">📋</span>
+                <BookOpen className="h-8 w-8 text-primary" />
               </div>
               <CardTitle>Nenhuma lista encontrada</CardTitle>
               <CardDescription>
@@ -136,26 +151,27 @@ export default function ListsPage() {
 }
 
 // Função auxiliar para retornar ícones baseados no nome do gênero
-function getGenreIcon(genreName: string): string {
+function getGenreIcon(genreName: string): JSX.Element {
   const name = genreName.toLowerCase();
+  const iconClass = "h-8 w-8 text-primary";
   
   if (name.includes('aventura') || name.includes('rpg')) {
-    return '⚔️';
+    return <Sword className={iconClass} />;
   } else if (name.includes('plataforma')) {
-    return '🏃';
+    return <User className={iconClass} />;
   } else if (name.includes('ação') || name.includes('action')) {
-    return '💥';
+    return <Zap className={iconClass} />;
   } else if (name.includes('esporte') || name.includes('sport')) {
-    return '⚽';
+    return <Trophy className={iconClass} />;
   } else if (name.includes('corrida') || name.includes('racing')) {
-    return '🏎️';
+    return <Car className={iconClass} />;
   } else if (name.includes('puzzle') || name.includes('quebra')) {
-    return '🧩';
+    return <Puzzle className={iconClass} />;
   } else if (name.includes('estratégia') || name.includes('strategy')) {
-    return '🎯';
+    return <Target className={iconClass} />;
   } else if (name.includes('simulação') || name.includes('simulation')) {
-    return '🎮';
+    return <Gamepad2 className={iconClass} />;
   } else {
-    return '🎲';
+    return <Dice6 className={iconClass} />;
   }
 }
