@@ -8,6 +8,7 @@ import Link from "next/link";
 import { GameDetail } from "@/types/game";
 import Breadcrumb from "@/components/Breadcrumb";
 import { AlertCircle, Loader2, Star, ArrowLeft, Target, Gamepad, FileText } from "lucide-react";
+import Head from 'next/head';
 
 export default function GameDetailPage() {
   const params = useParams();
@@ -90,8 +91,43 @@ export default function GameDetailPage() {
     );
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": game.title,
+    "description": game.shortDescription,
+    "genre": game.genre,
+    "gamePlatform": game.platforms,
+    "datePublished": game.year.toString(),
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": game.score,
+      "bestRating": 5
+    },
+    "image": game.imgUrl,
+    "url": `https://dslist.com/games/${game.id}`
+  };
+
   return (
-    <div className="min-h-screen">
+    <>
+      <Head>
+        <title>{game.title} | DSList</title>
+        <meta name="description" content={game.shortDescription} />
+        <meta name="keywords" content={`${game.title}, ${game.genre}, ${game.platforms}, jogo ${game.year}`} />
+        <meta property="og:title" content={`${game.title} | DSList`} />
+        <meta property="og:description" content={game.shortDescription} />
+        <meta property="og:image" content={game.imgUrl} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${game.title} | DSList`} />
+        <meta name="twitter:description" content={game.shortDescription} />
+        <meta name="twitter:image" content={game.imgUrl} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
+      <div className="min-h-screen">
 
       {/* Breadcrumb */}
       <Breadcrumb 
@@ -112,7 +148,7 @@ export default function GameDetailPage() {
                 <div className="aspect-video lg:aspect-square relative overflow-hidden game-card-image">
                   <img
                     src={game.imgUrl}
-                    alt={game.title}
+                    alt={`Capa oficial do jogo ${game.title} (${game.year}) - ${game.genre}`}
                     className="w-full h-full object-contain rounded-lg"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -198,5 +234,6 @@ export default function GameDetailPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

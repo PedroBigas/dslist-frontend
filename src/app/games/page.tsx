@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Game } from "@/types/game";
 import { Library, AlertCircle, Loader2 } from "lucide-react";
+import Head from 'next/head';
 
 export default function GamesPage() {
   const [games, setGames] = useState<Game[]>([]);
@@ -74,7 +75,16 @@ export default function GamesPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <>
+      <Head>
+        <title>Lista de Games | DSList</title>
+        <meta name="description" content={`Explore nossa coleção completa de ${games.length} jogos incríveis. Descubra novos títulos, veja detalhes e encontre seu próximo jogo favorito.`} />
+        <meta name="keywords" content="lista de jogos, catálogo de games, jogos completos, descobrir jogos, biblioteca de games" />
+        <meta property="og:title" content="Lista de Games | DSList" />
+        <meta property="og:description" content={`Explore nossa coleção completa de ${games.length} jogos incríveis.`} />
+        <meta property="og:type" content="website" />
+      </Head>
+      <div className="min-h-screen">
 
       {/* Page Title */}
       <section className="py-12 px-4">
@@ -103,7 +113,7 @@ export default function GamesPage() {
                     <div className="aspect-video md:aspect-square relative overflow-hidden bg-gradient-to-br from-muted/20 to-muted/40 game-card-image h-48 md:h-full">
                       <img
                         src={game.imgUrl}
-                        alt={game.title}
+                        alt={`Capa do jogo ${game.title} (${game.year})`}
                         className="max-w-full max-h-full object-contain rounded-lg"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
@@ -159,6 +169,7 @@ export default function GamesPage() {
           </Card>
           </div>
         )}
-    </div>
+      </div>
+    </>
   );
 }

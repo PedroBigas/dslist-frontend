@@ -35,7 +35,7 @@ export default function Header() {
             <Gamepad2 className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-primary">DSList</h1>
+            <span className="text-2xl font-bold text-primary">DSList</span>
             <p className="text-sm text-muted-foreground">Sua lista de games</p>
           </div>
         </Link>
