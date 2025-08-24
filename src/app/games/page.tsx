@@ -96,7 +96,7 @@ export default function GamesPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col gap-6">
             {games.map((game) => (
-              <Card key={game.id} className="neu-raised hover:neu-pressed transition-all duration-300 overflow-hidden game-list-card">
+              <Card key={game.id} className="neu-raised overflow-hidden game-list-card">
                 <div className="flex flex-col md:flex-row">
                   {/* Image Section */}
                   <div className="md:w-80 w-full">
@@ -104,7 +104,7 @@ export default function GamesPage() {
                       <img
                         src={game.imgUrl}
                         alt={game.title}
-                        className="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-105 rounded-lg"
+                        className="max-w-full max-h-full object-contain rounded-lg"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.src = '/placeholder-game.png';

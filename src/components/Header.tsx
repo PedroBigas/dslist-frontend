@@ -29,7 +29,7 @@ export default function Header() {
         <div className="flex items-center space-x-4">
           <Link href="/">
             <Button 
-              variant={isActive('/') ? "default" : "ghost"} 
+              variant="ghost"
               className={isActive('/') ? "neu-pressed" : "neu-flat hover:opacity-80"}
             >
               <Home className="h-4 w-4 mr-2" />
@@ -38,7 +38,7 @@ export default function Header() {
           </Link>
           <Link href="/lists">
             <Button 
-              variant={isActive('/lists') ? "default" : "ghost"} 
+              variant="ghost"
               className={isActive('/lists') ? "neu-pressed" : "neu-flat hover:opacity-80"}
             >
               <List className="h-4 w-4 mr-2" />
@@ -47,7 +47,7 @@ export default function Header() {
           </Link>
           <Link href="/games">
             <Button 
-              variant={isActive('/games') ? "default" : "ghost"} 
+              variant="ghost"
               className={isActive('/games') ? "neu-pressed" : "neu-flat hover:opacity-80"}
             >
               <Library className="h-4 w-4 mr-2" />
